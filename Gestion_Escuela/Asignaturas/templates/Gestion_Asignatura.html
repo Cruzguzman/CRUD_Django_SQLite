@@ -1,0 +1,79 @@
+{% extends "plantilla.html" %}
+{% block title %}Asignaturas{% endblock %}
+{% block body %}
+
+<div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <div class="card border border-success hover-shadow">
+            <div class="card-header text-center bg-success fs-3 fw-bold">Agregar asignaturas</div>
+            <div class="card-body bg-light">
+                <form action="/registrarAsignatura/" method="post">{% csrf_token %}
+                    <div class="form-outline">
+                        <input type="text" id="txtDNI" name="txtDNI" class="form-control form-control-lg" minlength="1"
+                               maxlength="10" required/>
+                        <label class="form-label" for="txtDNI">Clave asignatura</label>
+                    </div>
+                    <div class="form-outline mt-3">
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control form-control-lg"
+                               required/>
+                        <label class="form-label" for="txtNombre">Nombre asignatura</label>
+                    </div>
+                    <div class="form-outline mt-3">
+                        <input type="number" id="txtHoras_t" name="txtHoras_t" class="form-control form-control-lg"
+                               minlength="1" maxlength="1" required/>
+                        <label class="form-label" for="txtHoras_t">Horas teóricas</label>
+                    </div>
+                    <div class="form-outline mt-3">
+                        <input type="number" id="txtHoras_p" name="txtHoras_p" class="form-control form-control-lg"
+                               minlength="1" maxlength="1" required/>
+                        <label class="form-label" for="txtHoras_p">Horas practicas</label>
+                    </div>
+                    <div class="form-outline mt-3">
+                        <input type="number" id="txtCreditos" name="txtCreditos" class="form-control form-control-lg"
+                               minlength="1" maxlength="1" required/>
+                        <label class="form-label" for="txtCreditos">Créditos</label>
+                    </div>
+                    <button type="submit" class="btn btn-outline-success btn-rounded text-black btn-block mt-3">
+                        Guardar
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 ">
+        <div class="card border border-light hover-shadow my-3">
+            <div class="card-header text-center fs-3 fw-bold ">Lista de asignaturas</div>
+            <div class="card-body ">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Horas teóricas</th>
+                            <th>Horas practicas</th>
+                            <th>Créditos</th>
+                            <th colspan="2">Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {%for c in L_Asignaturas%}
+                        <tr>
+                            <td>{{c.NDI}}</td>
+                            <td>{{c.Nombre}}</td>
+                            <td>{{c.Horas_t}}</td>
+                            <td>{{c.Horas_p}}</td>
+                            <td>{{c.Creditos}}</td>
+                            <td><a href="editarAsignatura/{{c.NDI}}" class="btn btn-outline-info">Editar</a></td>
+                            <td><a href="eliminarAsignatura/{{c.NDI}}" class="btn  btn-outline-danger">Eliminar</a></td>
+                        </tr>
+                        {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
